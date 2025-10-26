@@ -1,0 +1,40 @@
+services:
+  emma:
+    build: .
+    container_name: habitante_emma
+    environment:
+      - HABITANTE_NOMBRE=Emma
+      - HABITANTE_EDAD=25
+      - PORT=8000
+      - HABITANTE_IMAGEN=/app/imagen.png
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./imagenes/lucia.png:/app/imagen.png
+
+  marco:
+    build: .
+    container_name: habitante_marco
+    environment:
+      - HABITANTE_NOMBRE=Marco
+      - HABITANTE_EDAD=34
+      - PORT=8001
+      - HABITANTE_IMAGEN=/app/imagen.png
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./imagenes/marco.png:/app/imagen.png
+
+  chloe:
+    build: .
+    container_name: habitante_chloe
+    environment:
+      - HABITANTE_NOMBRE=Chloe
+      - HABITANTE_EDAD=36
+      - PORT=8002
+      - HABITANTE_IMAGEN=/app/imagen.png
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./imagenes/ana.png:/app/imagen.png
+

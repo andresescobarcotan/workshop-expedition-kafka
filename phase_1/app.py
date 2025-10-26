@@ -6,16 +6,28 @@ import sys
 import base64
 import uvicorn
 
+
+from fastapi.middleware.cors import CORSMiddleware
+
+
 app = FastAPI(title="Habitante API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ----------------------------
 # CONFIGURACIÓN INICIAL
 # ----------------------------
 NOMBRE = os.getenv("HABITANTE_NOMBRE", "Desconocido")
 EDAD = int(os.getenv("HABITANTE_EDAD", "0"))
-IMAGEN_PATH = os.getenv("HABITANTE_IMAGEN", "imagen.jpg")  # Ruta opcional a la imagen
+IMAGEN_PATH = os.getenv("HABITANTE_IMAGEN", "imagen.png")  # Ruta opcional a la imagen
 PUERTO = int(os.getenv("PORT", 8000))
-
+EDAD_GOMMAGE = 33
 # Estado interno
 pertenencias: List[str] = []
 vivo: bool = True
@@ -58,11 +70,13 @@ def get_salud():
 
 @app.post("/gommage")
 def gommage():
-    """Finaliza el microservicio (muere el habitante)."""
-    global vivo
-    vivo = False
-    print(f"💀 {NOMBRE} ha realizado el gommage.")
-    sys.exit(0)  # Termina el proceso
+    print(NOMBRE+"::Mi edad es "+str(EDAD))
+    if(EDAD >= EDAD_GOMMAGE):
+        """Finaliza el microservicio (muere el habitante)."""
+        global vivo
+        vivo = False
+        print(f"💀 {NOMBRE} ha realizado el gommage.")
+        sys.exit(0)  # Termina el proceso
 
 # ----------------------------
 # VECINOS
