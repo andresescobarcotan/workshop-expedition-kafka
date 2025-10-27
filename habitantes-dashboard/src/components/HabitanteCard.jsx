@@ -1,10 +1,9 @@
 import React from "react";
 import { HeartIcon, XCircleIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
-import PertenenciasList from "./PertenenciasList";
 import VecinosList from "./VecinosList";
 
 export default function HabitanteCard({ habitante, onGommage }) {
-  const { nombre, edad, estado, imagen, pertenencias, vecinos } = habitante;
+  const { nombre, edad, estado, imagen, vecinos } = habitante;
   const vivo = estado === "vivo";
 
   
@@ -52,7 +51,6 @@ export default function HabitanteCard({ habitante, onGommage }) {
 
       {/* Secciones adicionales */}
       <div className="w-full space-y-3">
-        <PertenenciasList pertenencias={pertenencias} habitante={nombre} />
         <VecinosList vecinos={vecinos} />
       </div>
     </div>

@@ -1,20 +1,20 @@
 import axios from "axios";
 
 export const API_BASES = {
-  Lucia: "http://localhost:8000",
+  Emma: "http://localhost:8000",
   Marco: "http://localhost:8001",
-  Ana: "http://localhost:8002",
+  Chloe: "http://localhost:8002",
+  Pintora: "http://localhost:8003"
 };
 
 export async function getHabitanteInfo(nombre) {
   const base = API_BASES[nombre];
   try {
-    const [name, edad, salud, imagen, pertenencias, vecinos] = await Promise.all([
+    const [name, edad, salud, imagen, vecinos] = await Promise.all([
       axios.get(`${base}/name`),
       axios.get(`${base}/edad`),
       axios.get(`${base}/salud`),
       axios.get(`${base}/imagen`),
-      axios.get(`${base}/pertenencias`),
       axios.get(`${base}/vecinos`),
     ]);
 
@@ -35,7 +35,6 @@ export async function getHabitanteInfo(nombre) {
       edad: edad.data.edad,
       estado: salud.data.estado,
       imagen: imagen.data.imagen_base64,
-      pertenencias: pertenencias.data.pertenencias,
       vecinos: vecinosDetallados,
     };
   } catch (err) {

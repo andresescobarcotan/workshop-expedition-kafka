@@ -6,6 +6,7 @@ import httpx
 import sys
 import base64
 import uvicorn
+import asyncio
 
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,7 +34,7 @@ EDAD_GOMMAGE = 33
 pertenencias: List[str] = []
 vivo: bool = True
 vecinos: Dict[str, Dict[str, str | bool]] = {}  # {nombre: {"direccion": str, "vivo": bool}}
-pintora: bool = False
+pintora: bool = bool(os.getenv("HABITANTE_PINTORA", False))
 
 # ----------------------------
 # ENDPOINTS
@@ -56,33 +57,36 @@ def get_imagen():
         encoded = base64.b64encode(f.read()).decode("utf-8")
     return {"imagen_base64": encoded}
 
-@app.get("/pertenencias")
-def get_pertenencias():
-    return {"pertenencias": pertenencias}
-
-@app.put("/pertenencias")
-def add_pertenencias(items: List[str] = Body(..., example=["espada", "escudo"])):
-    pertenencias.extend(items)
-    return {"message": "Pertenencias añadidas", "pertenencias": pertenencias}
-
 @app.get("/salud")
 def get_salud():
     """Devuelve el estado de vida del servicio."""
     return {"estado": "vivo" if vivo else "muerto"}
 
 @app.post("/gommage")
-def gommage():
-    if(pintora):
-	async with httpx.AsyncClient() as client:
-	  gommages = [client.post(url) for url in vecinos]
-	  respuestas = await asyncio.gather(*gommages, return_exceptions=True)
+async def gommage():
+    global EDAD
+    global EDAD_GOMMAGE
+    global pintora
+    global NOMBRE
+    global vecinos
 
+    if(pintora):
+        async with httpx.AsyncClient() as client:
+            #gommages = [client.post(vecinos[vecino]["direccion"]+"/gommage") for vecino in vecinos]
+            #respuestas = await asyncio.gather(*gommages, return_exceptions=True)
+            for vecino in vecinos:
+                url = vecinos[vecino]["direccion"]+"/gommage"
+                print("Calling gommage for: "+url)
+                respuesta = await client.post(url)
+                print(respuesta.json())
     elif(EDAD >= EDAD_GOMMAGE):
         """Finaliza el microservicio (muere el habitante)."""
         global vivo
         vivo = False
         print(f"💀 {NOMBRE} ha realizado el gommage.")
-        sys.exit(0)  # Termina el proceso
+        os._exit(0)  # Termina el proceso
+    else:
+        EDAD +=1
 
 # ----------------------------
 # VECINOS

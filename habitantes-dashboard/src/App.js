@@ -6,7 +6,7 @@ function App() {
   const [habitantes, setHabitantes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const nombres = ["Lucia", "Marco", "Ana"];
+  const nombres = ["Emma", "Marco", "Chloe", "Pintora"];
 
   const cargarHabitantes = async () => {
     const data = await Promise.all(nombres.map(getHabitanteInfo));

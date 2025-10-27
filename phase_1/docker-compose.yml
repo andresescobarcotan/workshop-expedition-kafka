@@ -46,8 +46,13 @@ services:
       -  HABITANTE_EDAD=0
       -  PORT=8003
       -  HABITANTE_IMAGEN=/app/pintora.png
+      -  HABITANTE_PINTORA=True
     ports:
       -  "8003:8003"
     volumes:
       -  ./imagenes/pintora.png:/app/pintora.png
+    depends_on:
+      - emma
+      - marco
+      - chloe
 
