@@ -2,6 +2,7 @@
 from fastapi import FastAPI, Body, HTTPException
 from typing import List, Dict
 import os
+import httpx
 import sys
 import base64
 import uvicorn
@@ -32,6 +33,7 @@ EDAD_GOMMAGE = 33
 pertenencias: List[str] = []
 vivo: bool = True
 vecinos: Dict[str, Dict[str, str | bool]] = {}  # {nombre: {"direccion": str, "vivo": bool}}
+pintora: bool = False
 
 # ----------------------------
 # ENDPOINTS
@@ -70,8 +72,12 @@ def get_salud():
 
 @app.post("/gommage")
 def gommage():
-    print(NOMBRE+"::Mi edad es "+str(EDAD))
-    if(EDAD >= EDAD_GOMMAGE):
+    if(pintora):
+	async with httpx.AsyncClient() as client:
+	  gommages = [client.post(url) for url in vecinos]
+	  respuestas = await asyncio.gather(*gommages, return_exceptions=True)
+
+    elif(EDAD >= EDAD_GOMMAGE):
         """Finaliza el microservicio (muere el habitante)."""
         global vivo
         vivo = False

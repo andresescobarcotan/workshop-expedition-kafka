@@ -38,3 +38,16 @@ services:
     volumes:
       - ./imagenes/ana.png:/app/imagen.png
 
+  pintora:
+    build: .
+    container_name: habitante_pintora
+    environment:
+      -  HABITANTE_NOMBRE=Pintora
+      -  HABITANTE_EDAD=0
+      -  PORT=8003
+      -  HABITANTE_IMAGEN=/app/pintora.png
+    ports:
+      -  "8003:8003"
+    volumes:
+      -  ./imagenes/pintora.png:/app/pintora.png
+
