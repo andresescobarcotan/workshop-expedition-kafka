@@ -1,0 +1,93 @@
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.3
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.3
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+  emma:
+    build:
+      context: ./habitante
+    container_name: habitante_emma
+    environment:
+      - HABITANTE_NOMBRE=Emma
+      - HABITANTE_EDAD=25
+      - PORT=8000
+      - HABITANTE_IMAGEN=/app/imagen.png
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./imagenes/lucia.png:/app/imagen.png
+    depends_on:
+      - zookeeper
+      - kafka
+
+  marco:
+    build:
+      context: ./habitante
+    container_name: habitante_marco
+    environment:
+      - HABITANTE_NOMBRE=Marco
+      - HABITANTE_EDAD=34
+      - PORT=8001
+      - HABITANTE_IMAGEN=/app/imagen.png
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./imagenes/marco.png:/app/imagen.png
+    depends_on:
+      - zookeeper
+      - kafka
+
+  chloe:
+    build:
+      context: ./habitante
+    container_name: habitante_chloe
+    environment:
+      - HABITANTE_NOMBRE=Chloe
+      - HABITANTE_EDAD=36
+      - PORT=8002
+      - HABITANTE_IMAGEN=/app/imagen.png
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./imagenes/ana.png:/app/imagen.png
+    depends_on:
+      - zookeeper
+      - kafka
+
+  pintora:
+    build:
+      context: ./pintora
+    container_name: habitante_pintora
+    environment:
+      -  HABITANTE_NOMBRE=Pintora
+      -  HABITANTE_EDAD=0
+      -  PORT=8003
+      -  KAFKA_SERVER=kafka:9092
+      -  HABITANTE_IMAGEN=/app/pintora.png
+      -  HABITANTE_PINTORA=True
+    ports:
+      -  "8003:8003"
+    volumes:
+      -  ./imagenes/pintora.png:/app/pintora.png
+    depends_on:
+      - zookeeper
+      - kafka
+      - emma
+      - marco
+      - chloe
+
