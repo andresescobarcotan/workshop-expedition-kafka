@@ -35,24 +35,25 @@ vivo: bool = True
 vecinos: Dict[str, Dict[str, str | bool]] = {}  # {nombre: {"direccion": str, "vivo": bool}}
 pintora: bool = bool(os.getenv("HABITANTE_PINTORA", False))
 producer: Optional[AIOKafkaProducer] = None
-
+producer_ready = asyncio.Event()
 
 # ----------------------------
 # ENDPOINTS
 # ----------------------------
 
+
+# --- Kafka setup ---
 async def start_producer():
-    """Inicializa el productor Kafka de forma robusta."""
     global producer
     while True:
         try:
             producer = AIOKafkaProducer(bootstrap_servers=KAFKA_SERVER)
             await producer.start()
-            print("🎨 La Pintora conectada a Kafka.")
             producer_ready.set()
+            print("🎨 Kafka Producer conectado")
             break
         except Exception as e:
-            print(f"⚠️ Esperando a Kafka... ({e})")
+            print(f"⚠️ Esperando Kafka ({e})")
             await asyncio.sleep(3)
 
 
@@ -64,6 +65,17 @@ async def send_gommage():
     except Exception as e:
         print(f"❌ Error al enviar gommage: {e}")
         raise HTTPException(status_code=500, detail="Kafka no disponible")
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    global producer
+    if producer:
+        print("🧹 Cerrando Kafka Producer...")
+        try:
+            await producer.stop()
+            print("✅ Kafka Producer cerrado correctamente")
+        except Exception as e:
+            print(f"⚠️ Error cerrando productor: {e}")
 
 @app.on_event("startup")
 async def on_start():

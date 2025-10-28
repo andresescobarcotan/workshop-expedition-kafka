@@ -30,7 +30,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./imagenes/lucia.png:/app/imagen.png
+      - ./habitante/imagenes/lucia.png:/app/imagen.png
     depends_on:
       - zookeeper
       - kafka
@@ -47,7 +47,7 @@ services:
     ports:
       - "8001:8001"
     volumes:
-      - ./imagenes/marco.png:/app/imagen.png
+      - ./habitante/imagenes/marco.png:/app/imagen.png
     depends_on:
       - zookeeper
       - kafka
@@ -64,7 +64,7 @@ services:
     ports:
       - "8002:8002"
     volumes:
-      - ./imagenes/ana.png:/app/imagen.png
+      - ./habitante/imagenes/ana.png:/app/imagen.png
     depends_on:
       - zookeeper
       - kafka
@@ -83,7 +83,7 @@ services:
     ports:
       -  "8003:8003"
     volumes:
-      -  ./imagenes/pintora.png:/app/pintora.png
+      -  ./pintora/imagenes/pintora.png:/app/pintora.png
     depends_on:
       - zookeeper
       - kafka

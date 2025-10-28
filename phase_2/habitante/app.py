@@ -1,6 +1,7 @@
 # app.py
 from fastapi import FastAPI, Body, HTTPException
-from typing import List, Dict
+from typing import List, Dict, Optional
+from aiokafka import AIOKafkaConsumer
 import os
 import httpx
 import sys
@@ -38,13 +39,24 @@ pertenencias: List[str] = []
 vivo: bool = True
 vecinos: Dict[str, Dict[str, str | bool]] = {}  # {nombre: {"direccion": str, "vivo": bool}}
 pintora: bool = bool(os.getenv("HABITANTE_PINTORA", False))
+consumer: Optional[AIOKafkaConsumer] = None  # ✅ Declaramos variable global
+
 
 # ----------------------------
 # ENDPOINTS
 # ----------------------------
+@app.on_event("shutdown")
+async def shutdown_event():
+    if consumer:
+        print(f"🧹 {NOMBRE} cerrando consumer...")
+        try:
+            await consumer.stop()
+        except Exception as e:
+            print(f"⚠️ Error cerrando consumer: {e}")
+
 
 async def consumir_gommage():
-    global EDAD, EDAD_GOMMAGE, NOMBRE
+    global EDAD, EDAD_GOMMAGE, NOMBRE, consumer
     consumer = AIOKafkaConsumer(
         TOPIC_GOMMAGE,
         bootstrap_servers=KAFKA_SERVER,
@@ -67,6 +79,14 @@ async def consumir_gommage():
     finally:
         await consumer.stop()
 
+@app.on_event("shutdown")
+async def shutdown_event():
+    if consumer:
+        print(f"🧹 {NOMBRE} cerrando consumer...")
+        try:
+            await consumer.stop()
+        except Exception as e:
+            print(f"⚠️ Error cerrando consumer: {e}")
 
 @app.get("/name")
 def get_name():
