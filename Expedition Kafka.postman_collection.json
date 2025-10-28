@@ -1,0 +1,381 @@
+{
+	"info": {
+		"_postman_id": "84c60dd4-7095-4e8b-81e2-4a59ed2a8916",
+		"name": "Expedition Kafka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8068393"
+	},
+	"item": [
+		{
+			"name": "Emma",
+			"item": [
+				{
+					"name": "Edad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/edad",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"edad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Imagen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/imagen",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"imagen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Salud",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/salud",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"salud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/name",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"name"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Marco",
+			"item": [
+				{
+					"name": "Edad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/edad",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"edad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Imagen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/imagen",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"imagen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Salud",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/salud",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"salud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/name",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"name"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chloe",
+			"item": [
+				{
+					"name": "Edad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8002/edad",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"edad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Imagen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8002/imagen",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"imagen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Salud",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8002/salud",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"salud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8002/name",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"name"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pintora",
+			"item": [
+				{
+					"name": "Edad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8003/edad",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"edad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Imagen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8003/imagen",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"imagen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Salud",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8003/salud",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"salud"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gommage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8003/gommage",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"gommage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Añadir vecinos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Emma\": {\n    \"direccion\": \"http://emma:8000\",\n    \"vivo\": true\n  },\n  \"Marco\": {\n    \"direccion\": \"http://marco:8001\",\n    \"vivo\": true\n  },\n  \"Chloe\": {\n    \"direccion\": \"http://chloe:8002\",\n    \"vivo\": true\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8003/vecinos",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"vecinos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vecinos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8003/vecinos",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"vecinos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8003/name",
+							"host": [
+								"localhost"
+							],
+							"port": "8003",
+							"path": [
+								"name"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
