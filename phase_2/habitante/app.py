@@ -8,7 +8,8 @@ import sys
 import base64
 import uvicorn
 import asyncio
-
+import json
+import time
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -32,7 +33,7 @@ IMAGEN_PATH = os.getenv("HABITANTE_IMAGEN", "imagen.png")  # Ruta opcional a la 
 PUERTO = int(os.getenv("PORT", 8000))
 KAFKA_SERVER = os.getenv("KAFKA_SERVER", "kafka:9092")
 TOPIC_GOMMAGE = "habitantes.gommage"
-
+GROUP_ID = f"habitante-{NOMBRE}-{int(time.time())}"
 EDAD_GOMMAGE = 33
 # Estado interno
 pertenencias: List[str] = []
@@ -42,9 +43,21 @@ pintora: bool = bool(os.getenv("HABITANTE_PINTORA", False))
 consumer: Optional[AIOKafkaConsumer] = None  # ✅ Declaramos variable global
 
 
+
+
 # ----------------------------
 # ENDPOINTS
 # ----------------------------
+
+
+@app.on_event("startup")
+async def startup_event():
+    print(f"🚀 {NOMBRE} esperando 10s antes de iniciar consumidor...")
+    await asyncio.sleep(10)
+    """Se lanza cuando el servicio arranca."""
+    print(f"🚀 {NOMBRE} iniciando consumidor de gommage en {KAFKA_SERVER}...")
+    asyncio.create_task(consumir_gommage())
+
 @app.on_event("shutdown")
 async def shutdown_event():
     if consumer:
@@ -60,7 +73,7 @@ async def consumir_gommage():
     consumer = AIOKafkaConsumer(
         TOPIC_GOMMAGE,
         bootstrap_servers=KAFKA_SERVER,
-        group_id=f"habitante-{NOMBRE}",
+        group_id=GROUP_ID,
         enable_auto_commit=True,
     )
 
