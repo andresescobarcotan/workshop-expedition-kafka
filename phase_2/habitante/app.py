@@ -70,6 +70,7 @@ async def shutdown_event():
 
 async def consumir_gommage():
     global EDAD, EDAD_GOMMAGE, NOMBRE, consumer
+    global vivo
     consumer = AIOKafkaConsumer(
         TOPIC_GOMMAGE,
         bootstrap_servers=KAFKA_SERVER,
@@ -82,15 +83,15 @@ async def consumir_gommage():
         async for msg in consumer:
             evento = json.loads(msg.value.decode())
             if(EDAD > EDAD_GOMMAGE):
-                global vivo, ultimo_motivo
                 vivo = False
-                ultimo_motivo = evento.get("motivo")
                 print(f"💀 {NOMBRE} recibió gommage (edad={EDAD}). Saliendo...")
-                sys.exit(0)
+                
             else:
                 EDAD += 1
     finally:
         await consumer.stop()
+        if not vivo:
+            sys.exit(0)
 
 @app.on_event("shutdown")
 async def shutdown_event():
